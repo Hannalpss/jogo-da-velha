@@ -13,6 +13,7 @@ line_width = 10
 rows = 3
 colluns = 3
 board = np.zeros((rows,colluns))
+player = 1
 
 screen = pygame.display.set_mode((height,width))
 pygame.display.set_caption("Jogo da velha")
@@ -47,5 +48,27 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             exit()
-    
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            x = event.pos[0]
+            y = event.pos[1]
+
+            # Verifica se está fora do tabuleiro
+            if 50 <= x <= 450 and 100 <= y <= 500:
+                row_clicked = int((y - 100) // 133)
+                col_clicked = int((x - 50) // 133)
+                
+                if is_available(row_clicked,col_clicked):
+                    if player == 1:
+                        mark_square(row_clicked,col_clicked,1)
+                        player = 2
+                    elif player == 2:
+                        mark_square(row_clicked,col_clicked,2)
+                        player = 1
+                else:
+                    print("Quadrado ja ocupado")
+            #Se estiver fora
+            else:
+                print('fora')
+            print(board)
+
     pygame.display.update()
