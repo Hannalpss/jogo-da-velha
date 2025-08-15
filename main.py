@@ -9,6 +9,7 @@ height = 500
 width = 500
 bg_color = (152, 161, 188)
 line_color = (85, 88, 121)
+color2 = (222, 211, 196)
 line_width = 10
 rows = 3
 colluns = 3
@@ -25,6 +26,17 @@ pygame.draw.line(screen, line_color, (50, 100 + 266), (450, 100 + 266), line_wid
 # Linhas verticais (dividem as colunas)
 pygame.draw.line(screen, line_color, (50 + 133, 120), (50 + 133, 480), line_width)   # primeira linha vertical
 pygame.draw.line(screen, line_color, (50 + 266, 120), (50 + 266, 480), line_width)   # segunda linha vertical
+
+def draw():
+    for r in range(rows):
+        for c in range(colluns):
+            center_x = 50 + c * 133 + 133 // 2
+            center_y = 100 + r * 133 + 133 // 2
+            if board[r][c] == 1:  
+                pygame.draw.line(screen, line_color, (center_x - 40, center_y - 40), (center_x + 40, center_y + 40),10)
+                pygame.draw.line(screen, line_color, (center_x + 40, center_y - 40), (center_x - 40, center_y + 40),10)
+            elif board[r][c] == 2:
+                pygame.draw.circle(screen, color2, (center_x, center_y), 40, 10)
 
 def is_available(row,col):
    if board[row][col] == 0:
@@ -66,6 +78,7 @@ while True:
                         player = 1
                 else:
                     print("Quadrado ja ocupado")
+                draw()
             #Se estiver fora
             else:
                 print('fora')
